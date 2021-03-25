@@ -1,0 +1,22 @@
+.card {
+  border-radius: 3em;
+  border: 1px solid black;
+  width: 50%;
+  margin-top: 2em;
+  margin-bottom: 2em;
+}
+
+.image {
+  height: auto;
+  width: 50%;
+  margin-bottom: 1em;
+}
+
+.button {
+  color: white;
+  background-color: black;
+  border-radius: 0.33em;
+  border: 1px solid black;
+  padding: 0.8em 1.2em;
+  margin-bottom: 1em;
+}

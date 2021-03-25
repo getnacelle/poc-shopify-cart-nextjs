@@ -1,0 +1,19 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@500&display=swap");
+
+.app,
+.card-container,
+.product-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+body {
+  margin: 0;
+  font-family: "Roboto Mono", monospace;
+}
+
+button {
+  font-family: "Roboto Mono", monospace;
+}

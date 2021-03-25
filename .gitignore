@@ -1,0 +1,10 @@
+# Dependencies
+node_modules
+
+# Build outputs
+out
+.next
+
+# Environment variables
+.env
+.env.local

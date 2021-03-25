@@ -1,0 +1,16 @@
+.cart {
+  position: fixed;
+  left: 1em;
+}
+
+.item {
+  padding-bottom: 3em;
+}
+
+.price {
+  margin-bottom: 0.5em;
+}
+
+.checkout {
+  margin-top: 1em;
+}
