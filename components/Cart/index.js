@@ -8,6 +8,11 @@ import styles from "./Cart.module.css";
 const Cart = () => {
   const { cart, fetchCart } = useCart();
   const { isMobile } = useDetectDevice();
+  const cartLocale = window.navigator.language;
+  const cartCurrency = (cart && cart.currency) || "USD";
+  const formatPrice = formatCurrency(cartLocale, cartCurrency);
+  const subtotal =
+    cart && cart.total_price && formatPrice(cart.total_price / 100);
 
   useEffect(() => {
     if (!cart || !Object.keys(cart).length) {
@@ -19,7 +24,7 @@ const Cart = () => {
     <div className={styles.cart}>
       <header>
         <h4>SubTotal:</h4>
-        <div>{calculateSubTotal(cart)}</div>
+        <div>{subtotal}</div>
         <div className={styles.checkout}></div>
 
         <h3>Your Cart</h3>
@@ -28,18 +33,20 @@ const Cart = () => {
         {cart &&
           cart.items &&
           cart.items.map((item) => (
-            <CartItem item={item} key={item.id} isMobile={isMobile} />
+            <CartItem
+              item={item}
+              key={item.id}
+              isMobile={isMobile}
+              formatPrice={formatPrice}
+            />
           ))}
       </section>
     </div>
   );
 };
 
-const CartItem = ({ item }) => {
+const CartItem = ({ item, formatPrice }) => {
   const { removeFromCart } = useCart();
-  const cartLocale = window.navigator.language;
-  const cartCurrency = "USD";
-  const formatPrice = formatCurrency(cartLocale, cartCurrency);
 
   return (
     <div className={styles.item}>
@@ -51,21 +58,5 @@ const CartItem = ({ item }) => {
     </div>
   );
 };
-
-function calculateSubTotal(cart) {
-  const cartLocale = window.navigator.language;
-  const cartCurrency = cart && cart.currency ? cart.currency : "USD";
-  const formatPrice = formatCurrency(cartLocale, cartCurrency);
-
-  const total =
-    cart && cart.items
-      ? cart.items.reduce((subTotal, item) => {
-          const itemTotal = (item.quantity * parseInt(item.price, 10)) / 100;
-          return subTotal + itemTotal;
-        }, 0)
-      : 0;
-
-  return formatPrice(total);
-}
 
 export default Cart;
