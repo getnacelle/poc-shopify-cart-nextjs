@@ -9,7 +9,7 @@ export default function useCart() {
   }, []);
 
   const fetchCart = useCallback(() => {
-    // initialize or refreshe the Shopify cart
+    // initialize or refresh the Shopify cart
     return fetch("/api/cart", {
       mode: "cors",
       headers: {
