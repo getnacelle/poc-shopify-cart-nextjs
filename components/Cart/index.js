@@ -12,7 +12,9 @@ const Cart = () => {
   const cartCurrency = (cart && cart.currency) || "USD";
   const formatPrice = formatCurrency(cartLocale, cartCurrency);
   const subtotal =
-    cart && cart.total_price && formatPrice(cart.total_price / 100);
+    cart && cart.total_price
+      ? formatPrice(cart.total_price / 100)
+      : formatPrice(0);
 
   useEffect(() => {
     if (!cart || !Object.keys(cart).length) {
