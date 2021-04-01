@@ -28,6 +28,7 @@ With some code gymnastics with serverless functions and cookies, it is possible 
 
 <video width="560" height="240" controls>
   <source src="https://user-images.githubusercontent.com/5732000/113243585-4e7a3380-9281-11eb-88fc-355adef89f2d.mov">
+  https://user-images.githubusercontent.com/5732000/113243585-4e7a3380-9281-11eb-88fc-355adef89f2d.mov
 </video>
 
 ### Intentional Limitations
