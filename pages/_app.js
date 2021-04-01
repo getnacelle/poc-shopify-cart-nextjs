@@ -1,13 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import Head from "next/head";
-import { CartProvider } from "@nacelle/react-hooks";
 
 import "~/styles.css";
 import { Layout } from "~/components";
+import { CartContext } from "~/context";
 
 export default function App({ Component, pageProps }) {
+  const [cart, setCart] = useState(null);
   return (
-    <CartProvider useLocalStorage>
+    <CartContext.Provider value={{ cart, setCart }}>
       <Head>
         <title>Proof of Concept</title>
         <meta charSet="utf-8" />
@@ -16,6 +17,6 @@ export default function App({ Component, pageProps }) {
       <Layout>
         <Component {...pageProps} />
       </Layout>
-    </CartProvider>
+    </CartContext.Provider>
   );
 }
