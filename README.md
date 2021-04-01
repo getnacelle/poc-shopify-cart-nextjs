@@ -26,10 +26,10 @@ With this in mind, the motivation to explore using Shopify's server-side cart in
 
 With some code gymnastics with serverless functions and cookies, it is possible to use the Shopify server-side cart in a headless storefront:
 
-<video width="560" height="240" controls>
-  <source src="https://user-images.githubusercontent.com/5732000/113243585-4e7a3380-9281-11eb-88fc-355adef89f2d.mov">
-  https://user-images.githubusercontent.com/5732000/113243585-4e7a3380-9281-11eb-88fc-355adef89f2d.mov
-</video>
+<details>
+  <summary>Click to Expand AJAX Cart Demo</summary>
+  <img src="https://user-images.githubusercontent.com/5732000/113245926-f1cd4780-9285-11eb-8c19-b3e2ceeed5c0.gif" alt="Products being added to cart and removed from cart, with a slight lag time in between clicks and UI changes">
+</details>
 
 ### Intentional Limitations
 
