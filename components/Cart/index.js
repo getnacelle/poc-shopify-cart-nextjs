@@ -28,7 +28,6 @@ const Cart = () => {
         <h4>SubTotal:</h4>
         <div>{subtotal}</div>
         <div className={styles.checkout}></div>
-
         <h3>Your Cart</h3>
       </header>
       <section>
