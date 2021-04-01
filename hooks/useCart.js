@@ -1,4 +1,6 @@
 import { useContext, useCallback } from "react";
+import fetch from "isomorphic-unfetch";
+
 import { CartContext } from "~/context";
 
 export default function useCart() {
@@ -11,7 +13,6 @@ export default function useCart() {
   const fetchCart = useCallback(() => {
     // initialize or refresh the Shopify cart
     return fetch("/api/cart", {
-      mode: "cors",
       headers: {
         "Content-Type": "application/json",
       },
