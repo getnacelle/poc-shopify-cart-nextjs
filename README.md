@@ -16,7 +16,7 @@ Shopify Plus merchants use <a href="https://help.shopify.com/en/manual/checkout-
 
 Because headless Shopify storefronts use a <a href="https://shopify.dev/docs/storefront-api/reference/checkouts/checkoutcreateinput" target="_blank" rel="noopener">simple object</a> to initialize a checkout with the Shopify Storefront API, headless Shopify storefronts don't use the Shopify cart. Rather, it is up to the developer to create a cart and pass its contents to the Shopify Storefront API's <a href="https://shopify.dev/docs/storefront-api/reference/checkouts/checkoutcreate" target="_blank" rel="noopener">`checkoutCreate`</a> GraphQL mutation.
 
-This means that the headless cart is unable to leverage Shopify Scripts. And for the foreseeable future, Shopify won't provide an API endpoint that allows developers to access In order for discounts to appear in the cart and match the discounts available at checkout, the developer must replicate the Shopify Scripts logic (written in Ruby) in their JavaScript-powered frontend framework, or in a serverless function used by the headless cart.
+This means that the headless cart is unable to leverage Shopify Scripts. And for the foreseeable future, Shopify won't provide an API endpoint that allows developers to interact with Shopify Scripts in a headless environment. In order for discounts to appear in the cart and match the discounts available at checkout, the developer must replicate the Shopify Scripts logic (written in Ruby) in their JavaScript-powered frontend framework, or in a serverless function used by the headless cart.
 
 While this approach is tolerable to some merchants and their developers, merchants with a lot of Shopify Scripts logic are reluctant to rewrite and maintain this logic somewhere else. Duplicate discount logic written in another programming language can be difficult to test and trust, and errors + unhandled edge cases can manifest as customer-facing discrepencies between the cart total and the checkout total.
 
@@ -24,7 +24,7 @@ With this in mind, the motivation to explore using Shopify's server-side cart in
 
 ## Findings
 
-With some code gymnastics with serverless functions and cookies, it is possible to use the Shopify server-side cart in a headless storefront:
+With some code gymnastics with [serverless functions and cookies](./pages/api/cart/index.js), it is possible to use the Shopify server-side cart in a headless storefront:
 
 <details>
   <summary>Click to Expand AJAX Cart Demo</summary>
@@ -37,11 +37,11 @@ Note that the <a href="https://poc-nacelle-nextjs-shopify-cart.vercel.app/" targ
 
 ### Performance
 
-The above video shows that there is some slight latency associated with adding to cart + removing from cart. To deal with this, you could maintain a separate cart object which would be used as the source of truth for the UI. Changes to the cart would then need to be treated as optimistic transactions in which the UI-driving cart object and the Shopify cart are updated asynchronously.
+The above video shows that there is some latency associated with adding to cart + removing from cart. To deal with this, you could maintain a separate cart object which would be used as the source of truth for the UI. Changes to the cart would then need to be treated as optimistic transactions in which the UI-driving cart object and the Shopify cart are updated asynchronously.
 
 #### Maintaining two carts
 
-Optimistic & asynchronous cart transactions introduces a new set of challenges - how do you deal with situations in which the Shopify server-side cart becomes out-of-sync with the UI-driving cart object, which doesn't depend on successful network requests? This could become problematic for a customer who is shopping on their mobile phone during a train commute with a spotty network connection.
+Optimistic & asynchronous cart transactions introduce a new set of challenges - how do you deal with situations in which the Shopify server-side cart becomes out-of-sync with the UI-driving cart object, which doesn't depend on successful network requests? This could become problematic for a customer who is shopping on their mobile phone during a train commute with a spotty network connection.
 
 In the event of a desync between the two carts, interval-driven polling of the Shopify AJAX API could be used to re-sync the carts. But building this system introduces complexity that needs to be accounted for when weighing the pros and cons of the headless storefront w/ Shopify AJAX Cart approach.
 
