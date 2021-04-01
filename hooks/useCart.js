@@ -10,7 +10,7 @@ export default function useCart() {
 
   const fetchCart = useCallback(() => {
     // initialize or refreshe the Shopify cart
-    fetch("/api/cart", {
+    return fetch("/api/cart", {
       mode: "cors",
       headers: {
         "Content-Type": "application/json",
@@ -23,7 +23,8 @@ export default function useCart() {
 
   const addToCart = useCallback((lineItem) => {
     const { quantity, variants } = lineItem;
-    fetch("/api/cart", {
+
+    return fetch("/api/cart", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -44,11 +45,11 @@ export default function useCart() {
       .then(() => fetchCart());
   }, []);
 
-  const removeFromCart = useCallback(async (lineItem) => {
+  const removeFromCart = useCallback((lineItem) => {
     const updates = {};
     updates[lineItem.id] = 0;
 
-    await fetch("/api/cart", {
+    return fetch("/api/cart", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
