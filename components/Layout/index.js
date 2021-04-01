@@ -8,7 +8,7 @@ export default function Layout({ children }) {
   return (
     <>
       <div className={styles.header}>
-        <h1 className="app">Proof of Concept: Some Cool Feature</h1>
+        <h1 className="app">Proof of Concept: Headless Shopify AJAX Cart</h1>
       </div>
       <Cart className={styles.cart} css={{ position: "fixed" }} />
       <main>{children}</main>
